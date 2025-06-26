@@ -88,7 +88,7 @@ Trogen-Password-Strength-Checker/
 
 * **Developer**: Sooraj
 * **Team**: Trogen Coders
-* **UI & Feature Support**: [Mark](https://github.com/your-profile)
+* **UI & Feature Support**: [Mark](https://github.com/soorajtech)
 
 ---
 
