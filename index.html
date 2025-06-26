@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Trogen Password Strength Checker | Developed by Sooraj</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #1c1c1c;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0, 255, 140, 0.2);
+      width: 95%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+
+    .container h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #00ff99;
+    }
+
+    .rules {
+      font-size: 18px;
+      text-align: left;
+      margin: 20px 0;
+      background: #2a2a2a;
+      padding: 18px;
+      border-radius: 12px;
+      line-height: 1.8;
+      color: #ccc;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      padding: 16px 45px 16px 16px;
+      font-size: 20px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background: #333;
+      color: #fff;
+    }
+
+    .toggle {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #00ff99;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .strength {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 22px;
+      min-height: 30px;
+    }
+
+    .weak { color: #ff4d4d; }
+    .medium { color: #ffaa00; }
+    .strong { color: #00cc66; }
+
+    .watermark {
+      font-size: 13px;
+      margin-top: 30px;
+      color: #666;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 30px 20px;
+      }
+      .container h2 {
+        font-size: 24px;
+      }
+      .rules {
+        font-size: 16px;
+        padding: 14px;
+      }
+      input[type="password"],
+      input[type="text"] {
+        font-size: 18px;
+      }
+      .toggle {
+        font-size: 20px;
+      }
+      .strength {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Trogen Password Strength Checker</h2>
+    
+    <div class="input-group">
+      <input type="password" id="password" placeholder="Enter password" oninput="checkStrength()">
+      <button class="toggle" onclick="toggleVisibility()" id="toggleBtn">👁️</button>
+    </div>
+
+    <div class="rules">
+      <strong>Password must include:</strong><br>
+      • At least 8 characters<br>
+      • At least one uppercase letter<br>
+      • At least one lowercase letter<br>
+      • At least one number<br>
+      • At least one special character (!@#$%^&* etc.)
+    </div>
+
+    <div class="strength" id="strengthResult"></div>
+
+    <div class="watermark">Developed by Sooraj • Trogen Coders</div>
+  </div>
+
+  <script>
+    function checkStrength() {
+      const password = document.getElementById('password').value;
+      const result = document.getElementById('strengthResult');
+
+      if (password === "") {
+        result.textContent = "";
+        result.className = "strength";
+        return;
+      }
+
+      const lengthOK = password.length >= 8;
+      const hasUpper = /[A-Z]/.test(password);
+      const hasLower = /[a-z]/.test(password);
+      const hasDigit = /\d/.test(password);
+      const hasSpecial = /[\W_]/.test(password);
+
+      if (!lengthOK) {
+        result.textContent = "Strength: Weak ❌ (Too short)";
+        result.className = "strength weak";
+      } else if (hasUpper && hasLower && hasDigit && hasSpecial) {
+        result.textContent = "Strength: Strong 💪";
+        result.className = "strength strong";
+      } else if ((hasUpper || hasLower) && (hasDigit || hasSpecial)) {
+        result.textContent = "Strength: Medium ⚠️";
+        result.className = "strength medium";
+      } else {
+        result.textContent = "Strength: Weak ❌";
+        result.className = "strength weak";
+      }
+    }
+
+    function toggleVisibility() {
+      const pwdField = document.getElementById('password');
+      const toggleBtn = document.getElementById('toggleBtn');
+      if (pwdField.type === "password") {
+        pwdField.type = "text";
+        toggleBtn.textContent = "🙈";
+      } else {
+        pwdField.type = "password";
+        toggleBtn.textContent = "👁️";
+      }
+    }
+  </script>
+</body>
+</html>
